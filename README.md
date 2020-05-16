@@ -192,7 +192,8 @@ Shellcode=A code developed by hackers to run a program<br/>
 ![image](https://user-images.githubusercontent.com/31270985/82113565-87e2a700-9774-11ea-8caa-5589d480960d.png)
 <br/>
 
-29 byte shellcode I used to execute “/bin//sh”
+29 byte shellcode I used to execute “/bin//sh” <br/>
+
 ![image](https://user-images.githubusercontent.com/31270985/82113571-9f219480-9774-11ea-918f-44bee89ec1ba.png)
 <br/><br/>
 
