@@ -102,7 +102,7 @@ It is highly sophisticated to upload malicious code to the remote computer, also
 “-fno-stack-protector” : Disables stack protection.
 You can see some warnings about gets() function, while compiling the code.
 
-<br/>
+
 ![image](https://user-images.githubusercontent.com/31270985/82113327-d131f700-9772-11ea-9de9-2aba2fd6ce26.png)
 <br/><br/>
 
