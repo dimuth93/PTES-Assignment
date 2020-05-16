@@ -95,3 +95,121 @@ It is highly sophisticated to upload malicious code to the remote computer, also
 1. Write a C program with vulnerabilities
 
 ![image](https://user-images.githubusercontent.com/31270985/82113310-b65f8280-9772-11ea-8775-25b673d6f4d9.png)
+<br/><br/>
+
+2. Compile the code and create an executable file 
+
+“-fno-stack-protector” : Disables stack protection.
+You can see some warnings about gets() function, while compiling the code.
+
+<br/>
+![image](https://user-images.githubusercontent.com/31270985/82113327-d131f700-9772-11ea-9de9-2aba2fd6ce26.png)
+<br/><br/>
+
+
+3. Start ‘socat’ and start listening to a PORT
+
+![image](https://user-images.githubusercontent.com/31270985/82113335-e27b0380-9772-11ea-922d-adb26270a12e.png)
+<br/><br/>
+
+4. Connect to the PORT using ‘netcat’ and try out your code first.
+
+![image](https://user-images.githubusercontent.com/31270985/82113344-fb83b480-9772-11ea-93e0-5b74f7a4b35a.png)
+<br/><br/>
+
+5. Start developing a Socket using python code, which connects to your localhost (This can be either localhost IP or your target’s IP). As I have connect to the PORT using localhost, I am using localhost IP here.
+
+![image](https://user-images.githubusercontent.com/31270985/82113366-20782780-9773-11ea-81d5-86a820021b00.png)
+<br/><br/>
+
+6. Tryout “Format String Vulnerability” using special characters. I am using some “%p” to leak some memory addresses.
+
+![image](https://user-images.githubusercontent.com/31270985/82113377-38e84200-9773-11ea-89b5-021e33d94670.png)
+<br/><br/>
+
+7. To check these memory addresses, we need to look the memory map of your program and find out the stack address.
+
+‘ps aux | grep caf’ : Sort the process list attached
+‘sudo cat /proc/pid/maps’ : To access the memory map
+<br/>
+
+![image](https://user-images.githubusercontent.com/31270985/82113397-5ae1c480-9773-11ea-8d89-7dc11d75c08a.png)
+<br/><br/>
+
+8. Attach GDB to your process and try to find out any details from stack memory address
+
+I am using x/16gx here to look for “16 giant words”<br/>
+
+![image](https://user-images.githubusercontent.com/31270985/82113413-806ece00-9773-11ea-8c71-9580828ca54d.png)
+<br/><br/>
+
+9. Disassemble your main function and set a break pointer at return pointer
+
+![image](https://user-images.githubusercontent.com/31270985/82113430-a1372380-9773-11ea-901e-746710e9fbab.png)
+<br/><br/>
+
+10. Try some identifiable characters with “%p” and try to identify them using GDB. (Watch the change in stack memory address)
+
+Even though you might not see it the memory address itself. Try to go back few characters and try it again.<br/>
+
+![image](https://user-images.githubusercontent.com/31270985/82113443-c4fa6980-9773-11ea-8006-31a9158a608e.png)
+<br/><br/>
+
+11. Then use some “%p,%p,%p” (8 characters) as input and attach GDB. Go back 9 characters and print them as string and see.
+
+![image](https://user-images.githubusercontent.com/31270985/82113462-e9564600-9773-11ea-9130-8468f344f5b5.png)
+<br/><br/>
+
+12. In your python program, send some “%p,%p,%p” to your socket and retrieve the response. 
+
+You might have to separate string stream using ‘commas’. Print the 2nd value using ‘[1]’ and convert it to Base16 and also subtract 9. And also sometimes you have to add some loop around, because the receiving is so fast that server won’t be able to response it.<br/>
+
+![image](https://user-images.githubusercontent.com/31270985/82113478-0723ab00-9774-11ea-9295-3508f7799a27.png)
+<br/><br/>
+
+13. Then generate some long random non-repeatable string stream and paste it in the program input to have a buffer overflow. Then look at the stack and find the offset.
+
+![image](https://user-images.githubusercontent.com/31270985/82113538-62ee3400-9774-11ea-89de-26001e57819a.png)
+<br/><br/>
+
+14. Copy some of the string value, and delete the rest of it starting from the search value to end. Assign “padding” variable to it.
+
+Padding: This much of content needs to overwrite the return pointer.
+<br/>
+
+![image](https://user-images.githubusercontent.com/31270985/82113549-700b2300-9774-11ea-9333-a2168e53bb65.png)
+<br/><br/>
+
+15. Start designing the payload.
+
+Padding=Content needed to overwrite the return pointer
+RIP= Integer value used to point out the shellcode
+“x\90”*64 = some ASCII escape characters
+Shellcode=A code developed by hackers to run a program
+<br/>
+
+![image](https://user-images.githubusercontent.com/31270985/82113565-87e2a700-9774-11ea-8caa-5589d480960d.png)
+<br/>
+
+29 byte shellcode I used to execute “/bin//sh”
+![image](https://user-images.githubusercontent.com/31270985/82113571-9f219480-9774-11ea-918f-44bee89ec1ba.png)
+<br/><br/>
+
+16. Apply your shellcode to your coding and start the program. You’ll the ‘Your program is now executing a different program” message, which occurred due to your shellcode. It’ll give ‘root’ access in your targeted Linux pc.
+
+In additionally you can use python ‘telnet’ library to keep and maintain the session.
+<br/>
+
+![image](https://user-images.githubusercontent.com/31270985/82113595-d3955080-9774-11ea-965c-2980b66e9e67.png)
+<br/><br/>
+
+17. Results
+
+![image](https://user-images.githubusercontent.com/31270985/82113599-dee87c00-9774-11ea-9f3a-67d8a88ee786.png)
+<br/>
+![image](https://user-images.githubusercontent.com/31270985/82113603-e740b700-9774-11ea-8294-3f1b4b580970.png)
+<br/><br/>
+
+# REFERENCES
+
+
