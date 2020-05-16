@@ -92,4 +92,6 @@ It is highly sophisticated to upload malicious code to the remote computer, also
 <br/><br/>
 # 4.Exploitation
 
-1.	Writing a C program with vulnerabilities
+1. Write a C program with vulnerabilities
+
+![image](https://user-images.githubusercontent.com/31270985/82113310-b65f8280-9772-11ea-8775-25b673d6f4d9.png)
