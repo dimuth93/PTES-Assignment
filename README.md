@@ -138,6 +138,7 @@ You can see some warnings about gets() function, while compiling the code.<br/>
 
 8. Attach GDB to your process and try to find out any details from stack memory address
 <br/>
+
 I am using *'x/16gx'* here to look for “16 giant words”<br/>
 
 ![image](https://user-images.githubusercontent.com/31270985/82113413-806ece00-9773-11ea-8c71-9580828ca54d.png)
@@ -212,4 +213,10 @@ In additionally you can use python ‘telnet’ library to keep and maintain the
 
 # REFERENCES
 
+<br/>
+1. https://www.securitynow.com/author.asp?section_id=716&doc_id=749416<br/>
+2. https://nvd.nist.gov/vuln/detail/CVE-2005-0753#vulnCurrentDescriptionTitle<br/>
+3. https://www.us-cert.gov/bsi/articles/knowledge/coding-practices/fgets-and-gets_s<br/>
+4. http://www.keil.com/support/man/docs/armclang_ref/armclang_ref_cjh1548250046139.htm<br/>
 
+	
